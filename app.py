@@ -49,7 +49,7 @@ def main():
     with open('Personality.txt', 'w') as f:
         f.write(personality)
     if personality:
-        st.switch_page("chat.py")
+        st.switch_page("pages/chat.py")
 
 
 if __name__ == "__main__":
