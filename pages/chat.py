@@ -3,13 +3,11 @@ import streamlit as st
 import requests
 import google.generativeai as genai
 
-API_KEY = os.getenv('BING_API_KEY')
-GEMINI_KEY = os.getenv('GEMINI_API_KEY')
 
 def get_personality_image(personality):
     try:
         response = requests.get(f'https://api.bing.microsoft.com/v7.0/images/search?q={personality}&count=1',
-                                headers={'Ocp-Apim-Subscription-Key': API_KEY})
+                                headers={'Ocp-Apim-Subscription-Key': st.secrets["BING_API_KEY"]})
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
         st.error(f"Error fetching image: {e}")
@@ -26,7 +24,7 @@ def display_personality_details(personality, image_url):
 
 
 def working_of_gemini(variable, question):
-    genai.configure(api_key=GEMINI_KEY)
+    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
     # Set up the model
     generation_config = {
